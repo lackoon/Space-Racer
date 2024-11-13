@@ -13,13 +13,17 @@ public class Wheel : MonoBehaviour
     private Rigidbody rb;
     private CarController carController;
 
+    [Header("Forward and backwards")]
     public float accelerationForce;
+    public float gripForceMultiplier;
+
+
     [Header("Suspension")]
     [SerializeField] float restlength;
     [SerializeField] float springTravel;
     [SerializeField] float springStiffness;
     [SerializeField] float damperStiffness;
-    private float gripForceMultiplier = 5000f;
+    
     private float minLength;
     private float maxLength;
 
@@ -54,7 +58,6 @@ public class Wheel : MonoBehaviour
             float gripForce = -Vector3.Dot(tireWorldVel,transform.right) * gripForceMultiplier/100;
             rb.AddForceAtPosition(Fx * transform.forward, transform.position);
             rb.AddForceAtPosition(gripForce * transform.right, transform.position,ForceMode.Impulse);
-            Debug.Log(gripForce.ToString());
         }
     }
 }
