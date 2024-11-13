@@ -35,7 +35,7 @@ public class Wheel : MonoBehaviour
             Vector3 suspensionForce = (springForce - damperForce)* transform.up;
             
             rb.AddForceAtPosition(suspensionForce, transform.position);
-            Debug.Log($"{transform.name}: SpringForce: {springForce} DamperForce = {damperForce} Spring Velocity = {springVelocity}");
+            //Debug.Log($"{transform.name}: SpringForce: {springForce} DamperForce = {damperForce} Spring Velocity = {springVelocity}");
         }
     }
 }
