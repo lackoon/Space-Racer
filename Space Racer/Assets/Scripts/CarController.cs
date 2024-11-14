@@ -15,7 +15,7 @@ public class CarController : MonoBehaviour
     private float steeringInput;
     public float accelerationInput {get; set; }
     private float smoothSteeringInput;
-    private float smoothTime = 0.35f;
+    public float smoothTime;
     private float smoothVelocity;
 
     private float ackermannAngleLeft;
@@ -28,10 +28,15 @@ public class CarController : MonoBehaviour
         playerInputActions.Driving.Enable();
     }
 
+    private void OnDisable()
+    {
+        playerInputActions.Driving.Disable();
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.centerOfMass = rb.centerOfMass - new Vector3(0,0.3f,0);
+        rb.centerOfMass = rb.centerOfMass - new Vector3(0,0.2f,0);
     }
 
 
@@ -42,9 +47,8 @@ public class CarController : MonoBehaviour
         smoothSteeringInput = Mathf.SmoothDamp(smoothSteeringInput, steeringInput, ref smoothVelocity, smoothTime);
         // Speed relative turning
         float speed = Mathf.Abs(rb.linearVelocity.magnitude);
-        ackermannAngleLeft = maxSteeringAngle / 2 * smoothSteeringInput * Mathf.Clamp(15 / (speed + 1),0.2f,2f);
-        ackermannAngleRight = maxSteeringAngle / 2 * smoothSteeringInput * Mathf.Clamp(15 / (speed + 1),0.2f,2f);
-        Debug.Log(speed.ToString() + " " + ackermannAngleLeft.ToString());
+        ackermannAngleLeft = maxSteeringAngle / 2 * smoothSteeringInput * Mathf.Clamp(15 / (speed + 1),0.2f,2.5f);
+        ackermannAngleRight = maxSteeringAngle / 2 * smoothSteeringInput * Mathf.Clamp(15 / (speed + 1),0.2f,2.5f);
         //if (smoothSteeringInput > 0)
         //{
             
